@@ -24,6 +24,9 @@ pipenv run ./pipic.py --width 1000 --height 1000
 - infile (optional): file to read decimal places from; expects text; can only deal with integers, other symbols will cause errors
 - outfile (optional): file
 - random (optional): set this flag to use random input instead
+- filter (optional): defines which decimal values will be accepted; accepts a string like `314`, which will accept all
+  digits `3`, `1` and `4`. Default is `0123456789`
+- skip_color (optional): define the color to use, when a pixel is skipped due to being filtered out; accepts 0-9, default is zero
 
 
 ### How to create pictures larger than 1000x1000
