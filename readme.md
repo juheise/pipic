@@ -23,6 +23,7 @@ pipenv run ./pipic.py --width 1000 --height 1000
 - height: picture height in pixels
 - infile (optional): file to read decimal places from; expects text; can only deal with integers, other symbols will cause errors
 - outfile (optional): file
+- random (optional): set this flag to use random input instead
 
 
 ### How to create pictures larger than 1000x1000
