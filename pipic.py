@@ -1,37 +1,8 @@
 #!/usr/bin/env python3
-from random import Random
 
-from PIL import Image
 import argparse
-
-
-class RandomInput:
-
-    def __init__(self):
-        self.generator = Random()
-
-    def __enter__(self):
-        return self
-
-    def __exit__(self, exc_type, exc_val, exc_tb):
-        pass
-
-    def read(self, _):
-        return int(self.generator.random() * 10 + 0.5)
-
-
-def draw_pixel(img, cursor, digit, height):
-    y = int(cursor / height)
-    x = cursor - y * height
-    shade = 25*digit
-    img.putpixel((x,y), (shade, shade, shade))
-
-
-def input_stream(random=False, filename=None):
-    if random:
-        return RandomInput()
-    return open(filename)
-
+from img_io import draw_pixel, new_image, save_image
+from input import select_input_stream
 
 if __name__ == "__main__":
 
@@ -47,13 +18,11 @@ if __name__ == "__main__":
 
     width = int(args.width)
     height = int(args.height)
-
     max_cursor = width * height
-
-    img = Image.new('RGB', (width, height))
+    img = new_image(width, height)
     cursor = 0
 
-    with input_stream(filename=args.infile, random=args.random) as f:
+    with select_input_stream(filename=args.infile, random=args.random) as f:
         while cursor < max_cursor:
             char = f.read(1)
             if not char in args.filter:
@@ -62,4 +31,4 @@ if __name__ == "__main__":
             draw_pixel(img, cursor, digit, height)
             cursor += 1
 
-    img.save(args.outfile)
+    save_image(img, args.outfile)
